@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> SwanScripter </title>
-    <link rel="icon" href="/assets/default_icons/logo.png">
+    <title> ArfanGame </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -36,13 +35,13 @@
 <div class="wrapper">
 
     <header class="main-header">
-        <input type="hidden" id="user_id" value="{!! Auth::user()->id !!}">
+
         <!-- Logo -->
         <a href="/dashboard" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>SS</b></span>
+            <span class="logo-mini"><b>AG</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Swan</b>Scripter</span>
+            <span class="logo-lg"><b>Arfan</b>Game</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -58,28 +57,24 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="" class="user-image user_photo_dashboard" alt="User Image">
-                            <span class="hidden-xs user_alias_dashboard"></span>
+                            <img src="/assets/default_icons/administrator.png" class="user-image user_photo_dashboard" alt="User Image">
+                            <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="" class="img-circle user_photo_dashboard" alt="User Image">
+                                <img src="/assets/default_icons/administrator.png" class="img-circle user_photo_dashboard" alt="User Image">
 
                                 <p>
-                                    <span class="user_name_dashboard"></span>
-                                    <small class="role_dashboard"></small>
+                                    <span>{{ Auth::user()->name }}</span>
+                                    <small class="role_dashboard">Administrator</small>
                                 </p>
                             </li>
 
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="/user/profile/{{Auth::user()->id}}"
-                                       class="btn btn-info btn-flat">Profile</a>
-                                </div>
                                 <div class="pull-right">
-                                    <a href="/user/logout" id="logout" class="btn btn-warning btn-flat">Logout</a>
+                                    <a href="/admin/logout" id="logout" class="btn btn-danger btn-flat">Logout</a>
                                 </div>
                             </li>
                         </ul>
@@ -100,30 +95,21 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="" class="img-circle user_photo_dashboard" alt="User Image">
+                    <img src="/assets/default_icons/administrator.png" class="img-circle user_photo_dashboard" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p class="user_name_dashboard"></p>
+                    <p>{{ Auth::user()->name }}</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
+                {{-- dashboard menu --}}
                 <li class="<?php echo ($data['controller'] == 'dashboard') ? 'active' : '' ?> treeview">
-                    <a href="/dashboard">
+                    <a href="/admin/dashboard">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
-                </li>
-                <li class="<?php echo ($data['controller'] == 'users') ? 'active' : '' ?> treeview">
-                    <a href="#">
-                        <i class="fa fa-users"></i> <span>Users</span>
-						<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li  class="<?php echo($data['function'] == 'index' ? 'active' : '') ?>"><a href="/users"><i class="fa fa-circle-o"></i>List</a></li>
-                        <li class="<?php echo($data['function'] == 'role' ? 'active' : '') ?>"><a href="/user/roles"><i class="fa fa-circle-o"></i>Role</a></li>
-                    </ul>
                 </li>
             </ul>
         </section>
@@ -134,9 +120,8 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> beta
         </div>
-        <strong>Copyright &copy; 2017 <a href="http://www.facebook.com/davidbezalellaoli" target="_blank">David Bezalel
-                Laoli</a>.</strong> All rights
-        reserved.
+        <strong>&copy; 2017 </strong>
+        All rights reserved.
     </footer>
 
 
@@ -159,7 +144,7 @@
 {{--<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>--}}
 {{--<script src="/plugins/fastclick/fastclick.js"></script>--}}
 <script src="/dist/js/app.min.js"></script>
-<script src="/js/admin_master.js"></script>
+<script src="/js/admin.js"></script>
 
 <?php
 if (isset($data['scripts'])) {

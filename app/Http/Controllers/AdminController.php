@@ -22,10 +22,15 @@ class AdminController extends Controller
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'dashboard';
             $this->data['function'] = '';
-            return view('dashboard.index')->with('data', $this->data);
+            return view('admin.index')->with('data', $this->data);
         } else {
             return redirect('/admin/login');
         }
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect('/admin/login');
     }
 
     public function login(Request $request)

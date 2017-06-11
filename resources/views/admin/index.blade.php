@@ -1,58 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{!! $data['title'] !!}</title>
-    <link rel="icon" href="/assets/default_icons/logo.png">
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+@extends('layouts.admin_master')
 
-    <?php
-    if (isset($data['styles'])) {
-        foreach ($data['styles'] as $style) {
-            echo '<link rel="stylesheet" href="/css/' . $style . '">';
-        }
-    }
-    ?>
-
-</head>
-<body class="hold-transition login-page">
-
-<div class="login-box">
-    <div class="login-logo">
-        <b>Arfan</b> Game
-    </div>
-    <div class="alert alert-danger" id="error"></div>
-    <div class="login-box-body">
-        <p class="login-box-msg">Please login as an Administrator</p>
-        <form action="" id="login">
-            <div class="form-group has-feedback">
-                <input type="text" name="userid" id="email" class="form-control" placeholder="User Id">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-4 col-xs-offset-8">
-                    <button type="submit" id="btn-login" data-loading-text="<i class='fa fa-spinner fa-spin '></i>" class="btn btn-primary btn-block btn-flat">Login</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div> {{-- end of login-box--}}
-
-</body>
-<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-
-<?php
-if (isset($data['scripts'])) {
-    foreach ($data['scripts'] as $script) {
-        echo '<script src="/js/' . $script . '"></script>';
-    }
-}
-?>
-</html>
+@section('content')
+    <section class="content-header clear-float">
+        <ol class="breadcrumb">
+            <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">List</li>
+        </ol>
+    </section>
+@endsection

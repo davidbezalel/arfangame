@@ -18,6 +18,7 @@ Route::get('oops/permission', function () {
 Route::get('admin/dashboard', 'AdminController@dashboard');
 Route::get('admin/login', 'AdminController@login');
 Route::get('admin/register', 'AdminController@register');
+Route::get('admin/logout', 'AdminController@logout');
 
 
 /* POST HTTP method */
