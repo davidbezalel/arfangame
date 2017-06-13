@@ -125,9 +125,32 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 {{-- dashboard menu --}}
-                <li class="<?php echo ($data['controller'] == 'dashboard') ? 'active' : '' ?> treeview">
+                <li class="<?php echo ($data['controller'] == 'dashboard' ? 'active' : ''); ?> treeview">
                     <a href="/admin/dashboard">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        <i class="fa"><span class="glyphicon glyphicon-dashboard"></span></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                {{-- player menu --}}
+                <li class="<?php echo ($data['controller'] == 'player' ? 'active' : ''); ?> treeview">
+                    <a href="/admin/dashboard">
+                        <i class="fa fa-users"></i> <span>Player</span>
+                    </a>
+                </li>
+                {{-- game menu --}}
+                <li class="<?php echo ($data['controller'] == 'game' ? 'active' : ''); ?> treeview">
+                    <a href="/admin/dashboard">
+                        <i class="fa fa-gamepad"></i> <span>Game</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="<?php echo($data['function'] == 'togel' ? 'active' : ''); ?>"><a href="#"><i class="fa fa-american-sign-language-interpreting"></i>Togel</a></li>
+                        <li class="<?php echo($data['function'] == 'bola' ? 'active' : ''); ?>"><a href="#"><i class="fa fa-futbol-o"></i>Bola</a></li>
+                    </ul>
+                </li>
+                {{-- transaction menu --}}
+                <li class="<?php echo ($data['controller'] == 'transaction' ? 'active' : ''); ?> treeview">
+                    <a href="/admin/dashboard">
+                        <i class="fa"><span class="glyphicon glyphicon-transfer"></span></i><span>Transaction</span>
                     </a>
                 </li>
             </ul>
