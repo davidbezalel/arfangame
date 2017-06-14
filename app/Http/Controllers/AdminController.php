@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        if (Auth::guard('admin')->check()) {
+        if (Auth::check()) {
             if ($this->isPost()) {
                 /* get admin data */
             }
@@ -29,7 +29,7 @@ class AdminController extends Controller
     }
 
     public function logout() {
-        Auth::guard('admin')->logout();
+        Auth::logout();
         return redirect('/admin/login');
     }
 
