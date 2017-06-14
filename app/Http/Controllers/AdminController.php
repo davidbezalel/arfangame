@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        if (Auth::check()) {
+        if (Auth::guard('admin')->check()) {
             if ($this->isPost()) {
                 /* get admin data */
             }
@@ -29,7 +29,7 @@ class AdminController extends Controller
     }
 
     public function logout() {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         return redirect('/admin/login');
     }
 
@@ -38,7 +38,7 @@ class AdminController extends Controller
         if ($this->isPost()) {
             /* set validation rules */
             $rules = array(
-                'userid' => 'required',
+                'adminid' => 'required',
                 'password' => 'required|min:6',
             );
 
@@ -51,10 +51,10 @@ class AdminController extends Controller
             /* get request data */
             $data = $request->all();
 
-            if (Auth::attempt($data)) {
+            if (Auth::guard('admin')->attempt($data)) {
                 $this->response_json->status = true;
             } else {
-                $this->response_json->message = 'This user does not exist.';
+                $this->response_json->message = 'Check your credentials. Email or password might be wrong.';
             }
             return $this->__json();
 
@@ -79,7 +79,7 @@ class AdminController extends Controller
             /* set validation rules */
             $rules = array(
                 'name' => 'required',
-                'userid' => 'required',
+                'adminid' => 'required',
                 'password' => 'required|min:6',
                 'repassword' => 'required|min:6|same:password',
             );
@@ -91,19 +91,18 @@ class AdminController extends Controller
             }
 
             /* checking the userid */
-            $usermodel = new User();
+            $adminmodel = new User();
             $where = array(
                 'userid' => $request['userid']
             );
-            if (null !== $usermodel->find_v2($where)) {
+            if (null !== $adminmodel->find_v2($where)) {
                 $this->response_json->message = 'userid already exist.';
                 return $this->__json();
             }
 
             /* insert: user */
-            $user_model = new User();
             $data = array();
-            foreach ($user_model->getFillable() as $field) {
+            foreach ($adminmodel->getFillable() as $field) {
                 if ($field == 'password') {
                     $data['password'] = Hash::make($request['password']);
                 } else {

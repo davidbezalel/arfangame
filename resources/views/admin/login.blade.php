@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{!! $data['title'] !!}</title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -27,7 +28,7 @@
         <p class="login-box-msg">Please login as an Administrator</p>
         <form action="" id="login">
             <div class="form-group has-feedback">
-                <input type="text" name="userid" id="email" class="form-control" placeholder="User Id">
+                <input type="text" name="adminid" id="email" class="form-control" placeholder="User Id">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

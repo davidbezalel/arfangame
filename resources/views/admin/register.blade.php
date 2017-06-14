@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{!! $data['title'] !!}</title>
     <link rel="icon" href="/assets/default_icons/logo.png">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -33,7 +34,7 @@
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" name="userid" id="userid" class="form-control" placeholder="Alias">
+                <input type="text" name="userid" id="adminid" class="form-control" placeholder="Alias">
                 <span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

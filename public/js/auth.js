@@ -10,9 +10,12 @@ jQuery(document).ready(function () {
         $('#error').hide();
         $('#btn-login').button('loading');
         var data = $(this).serialize();
+        var token = $('meta[name=csrf-token]').attr("content");
+        console.log(token);
         $.ajax({
             url: '/admin/login',
             type: 'POST',
+            headers: {'X-CSRF-TOKEN': token},
             data: data,
             cache: false,
             processData: false,
@@ -32,10 +35,11 @@ jQuery(document).ready(function () {
         $('#btn-register').button('loading');
         $('#error').hide();
         var data = $(this).serialize();
-
+        var token = $('meta[name=csrf-token]').attr("content");
         $.ajax({
             url: '/admin/register',
             type: 'POST',
+            headers: {'X-CSRF-TOKEN': token},
             data: data,
             cache: false,
             processData: false,
