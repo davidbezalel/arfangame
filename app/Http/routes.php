@@ -25,5 +25,14 @@ Route::get('admin/logout', 'AdminController@logout');
 /* POST HTTP method */
 Route::post('admin/register', 'AdminController@register');
 Route::post('admin/login', 'AdminController@login');
+
 /* player */
+/* GET HTTP method */
+Route::get('/', 'PublicController@index');
+Route::get('/player/dashboard', 'PlayerController@index');
+Route::get('/player/logout', 'PlayerController@logout');
+
+/* POST HTTP method */
+Route::post('/player/register', 'PlayerController@register');
+Route::post('/player/login', 'PlayerController@login');
 

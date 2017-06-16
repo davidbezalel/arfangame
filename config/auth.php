@@ -76,7 +76,7 @@ return [
         ],
         'user' => [
             'driver'=> 'eloquent',
-            'model' => App\Model\User::class,
+            'model' => App\Model\Player::class,
         ]
 
         // 'users' => [

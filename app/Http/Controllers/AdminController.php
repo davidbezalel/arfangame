@@ -22,6 +22,7 @@ class AdminController extends Controller
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'dashboard';
             $this->data['function'] = '';
+            $this->data['title'] = 'Dashboard';
             return view('admin.index')->with('data', $this->data);
         } else {
             return redirect('/admin/login');
@@ -35,6 +36,9 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
+        if (Auth::check()) {
+            return redirect('/admin/dashboard');
+        }
         if ($this->isPost()) {
             /* set validation rules */
             $rules = array(
@@ -66,7 +70,7 @@ class AdminController extends Controller
         $scripts = array();
         $scripts[] = 'auth.js';
 
-        $this->data['title'] = 'Login';
+        $this->data['title'] = 'ArfanGame | Login';
         $this->data['styles'] = $styles;
         $this->data['scripts'] = $scripts;
 
@@ -122,7 +126,7 @@ class AdminController extends Controller
         $scripts = array();
         $scripts[] = 'auth.js';
 
-        $this->data['title'] = 'Register';
+        $this->data['title'] = 'ArfanGame | Register';
         $this->data['styles'] = $styles;
         $this->data['scripts'] = $scripts;
         return view('admin.register')->with('data', $this->data);
