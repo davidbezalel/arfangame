@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> ArfanGame | {{ $data['title'] }} </title>
 
     {{-- make site responsive to the screen width --}}
@@ -10,16 +11,10 @@
 
     {{-- load all required css --}}
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/dist/css/AdminLTE.css">
-    <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" href="/plugins/iCheck/flat/blue.css">
     <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
-    <link rel="stylesheet" href="/plugins/morris/morris.css">
-    <link rel="stylesheet" href="/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-    <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
-    <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="/css/datatable_custom.css">
     <link rel="stylesheet" href="/css/style.css">
 
@@ -134,7 +129,7 @@
                 </li>
                 {{-- player menu --}}
                 <li class="<?php echo ($data['controller'] == 'player' ? 'active' : ''); ?> treeview">
-                    <a href="/admin/dashboard">
+                    <a href="/admin/player">
                         <i class="fa fa-users"></i> <span>Player</span>
                     </a>
                 </li>
@@ -182,13 +177,13 @@
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="/dist/js/app.min.js"></script>
-<script src="/js/admin.js"></script>
+<script src="/js/admin/admin.js"></script>
 
 {{-- load all the additional javascript --}}
 <?php
 if (isset($data['scripts'])) {
     foreach ($data['scripts'] as $script) {
-        echo '<script src="/js/' . $script . '"></script>';
+        echo '<script src="/js/admin/' . $script . '"></script>';
     }
 }
 ?>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Model\Player;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,12 +25,12 @@ class AdminController extends Controller
             $this->data['function'] = '';
             $this->data['title'] = 'Dashboard';
             return view('admin.index')->with('data', $this->data);
-        } else {
-            return redirect('/admin/login');
         }
+        return redirect('/admin/login');
     }
 
-    public function logout() {
+    public function logout()
+    {
         Auth::logout();
         return redirect('/admin/login');
     }
@@ -130,5 +131,44 @@ class AdminController extends Controller
         $this->data['styles'] = $styles;
         $this->data['scripts'] = $scripts;
         return view('admin.register')->with('data', $this->data);
+    }
+
+    public function player(Request $request)
+    {
+        if (Auth::check()) {
+            if ($this->isPost()) {
+                /* get player data */
+                $playermodel = new Player();
+
+                $columns = ['no', 'name', 'playerid', 'deposite'];
+                $where = array(
+                    ['name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
+                    ['playerid', 'LIKE', '%' . $request['search']['value'] . '%']
+                );
+                $players = $playermodel->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
+                $number = 1;
+                foreach ($players as &$item) {
+                    $item['no'] = $number;
+                    $number++;
+                }
+                $response_json = array();
+                $response_json['draw'] = $request['draw'];
+                $response_json['data'] = $players;
+                $response_json['recordsTotal'] = $playermodel->getTableCount($where);
+                $response_json['recordsFiltered'] = $playermodel->getTableCount($where);
+                return $this->__json($response_json);
+
+            }
+            $styles = array();
+            $scripts = array();
+            $scripts[] = 'player.js';
+            $this->data['styles'] = $styles;
+            $this->data['scripts'] = $scripts;
+            $this->data['controller'] = 'player';
+            $this->data['function'] = '';
+            $this->data['title'] = 'Player';
+            return view('admin.player')->with('data', $this->data);
+        }
+        return redirect('/admin/login');
     }
 }

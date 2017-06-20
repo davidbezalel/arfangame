@@ -20,11 +20,13 @@ Route::get('admin', 'AdminController@dashboard');
 Route::get('admin/login', 'AdminController@login');
 Route::get('admin/register', 'AdminController@register');
 Route::get('admin/logout', 'AdminController@logout');
+Route::get('admin/player', 'AdminController@player');
 
 
 /* POST HTTP method */
 Route::post('admin/register', 'AdminController@register');
 Route::post('admin/login', 'AdminController@login');
+Route::post('admin/player', 'AdminController@player');
 
 /* player */
 /* GET HTTP method */

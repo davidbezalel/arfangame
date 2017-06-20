@@ -65,8 +65,7 @@
 
 .box-body a.general-action {
     font-size: 18px;
-    padding: 2px 7px;
-    border-radius: 6px;
+    padding: 4px 10px;
     color: white;
     margin-bottom: 10px;
 }
@@ -77,9 +76,18 @@
 }
 
 .box-body a.add {
-    background: #0277BD;
+    background: #3c8dbc;
 }
 
 .modal-dialog {
     background: #FFF;
+}
+
+/* box body */
+.box {
+    border-radius: 0;
+}
+
+.content-header > .breadcrumb {
+    position: initial;
 }
