@@ -3,10 +3,9 @@
  */
 
 jQuery(document).ready(function () {
-    var is_agree_terms = false;
-
     $('#login').submit(function (event) {
         event.preventDefault();
+        console.log('testing');
         $('#error').hide();
         $('#btn-login').button('loading');
         var data = $(this).serialize();

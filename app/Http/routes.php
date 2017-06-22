@@ -30,8 +30,8 @@ Route::post('admin/player', 'AdminController@player');
 
 /* player */
 /* GET HTTP method */
-Route::get('/', 'PublicController@index');
-Route::get('/player/dashboard', 'PlayerController@index');
+Route::get('/', 'PlayerController@index');
+Route::get('/player/dashboard', 'PlayerController@dashboard');
 Route::get('/player/logout', 'PlayerController@logout');
 
 /* POST HTTP method */

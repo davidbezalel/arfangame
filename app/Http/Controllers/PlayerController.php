@@ -12,6 +12,24 @@ class PlayerController extends Controller
 {
     public function index()
     {
+        if (Auth::guard('user')->check()) {
+            /* load user data */
+        }
+        $styles = array();
+
+        $scripts = array();
+        $scripts[] = 'auth.js';
+
+        $this->data['styles'] = $styles;
+        $this->data['scripts'] = $scripts;
+        $this->data['title'] = 'ArfanGame';
+        $this->data['function'] = 'index';
+        return view('player.index')->with('data', $this->data);
+
+    }
+
+    public function dashboard()
+    {
         $this->data['title'] = '| Dashboard';
         return view('public.index')->with('data', $this->data);
     }
@@ -58,7 +76,7 @@ class PlayerController extends Controller
                 'name' => 'required',
                 'playerid' => 'required|min:6',
                 'password' => 'required|min:6',
-                're-password' => 'required|same:password',
+                'repassword' => 'required|same:password',
             );
 
             /* validation */
@@ -79,6 +97,7 @@ class PlayerController extends Controller
             }
             $playermodel::create($data);
             $this->response_json->status = true;
+            $this->response_json->message = 'Register Success. Please Sign In.';
             return $this->__json();
         }
     }

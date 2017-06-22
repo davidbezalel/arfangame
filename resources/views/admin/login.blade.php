@@ -23,7 +23,7 @@
     <div class="login-logo">
         <b>Arfan</b> Game
     </div>
-    <div class="alert alert-danger" id="error"></div>
+    <div class="alert redalert" id="error"></div>
     <div class="login-box-body">
         <p class="login-box-msg">Please login as an Administrator</p>
         <form action="" id="login">
@@ -51,7 +51,7 @@
 <?php
 if (isset($data['scripts'])) {
     foreach ($data['scripts'] as $script) {
-        echo '<script src="/js/' . $script . '"></script>';
+        echo '<script src="/js/admin/' . $script . '"></script>';
     }
 }
 ?>
