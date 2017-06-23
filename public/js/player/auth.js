@@ -11,7 +11,7 @@ jQuery(document).ready(function () {
 
     var modalhide = function () {
         $('.modal').fadeOut('slow', function () {
-            $(this).modal('hide');
+            $('#registermodalclose').click();
         });
     };
 

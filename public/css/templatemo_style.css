@@ -26,7 +26,7 @@ h2 { font-size: 24px; }
 .left-container {
 	display: table-cell;
 	float: none;
-	width: 25%;
+	width: 38%;
 	padding-bottom: 20px;
 	padding-left: 30px;
 	padding-right: 0;
@@ -34,7 +34,7 @@ h2 { font-size: 24px; }
 .right-container {
 	display: table-cell;
 	float: none;
-	width: 75%;
+	width: 62%;
 	padding-bottom: 20px;
 	padding-left: 0;
 	padding-right: 30px;
@@ -42,13 +42,13 @@ h2 { font-size: 24px; }
 }
 .black-bg {
 	color: white;
-	background-color: #212121;
+	background-color: black;
 }
-.white-bg {	background-color: #eeeeee; }
+.white-bg {	background-color: white; }
 .tm-left-inner-container { margin-right: 30px; }
 .tm-right-inner-container {
 	margin-left: 30px;
-	/* max-width: 710px; */
+	max-width: 710px;
 }
 .templatemo-logo { 
 	display: table;
@@ -108,8 +108,8 @@ h2 { font-size: 24px; }
 	transition: background-color 0.3s;
 }
 .templatemo-nav>li>a:hover, .templatemo-nav>li>a:focus, .templatemo-nav>li>a.active {
-	background-color: #eee;
-	color: #212121;
+	background-color: #fff;
+	color: #000;
 	font-weight: 700;
 }
 .templatemo-nav>li>a>.fa { margin-right: 10px; }
