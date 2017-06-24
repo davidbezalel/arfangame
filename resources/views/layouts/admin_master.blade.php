@@ -140,9 +140,15 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="<?php echo($data['function'] == 'togel' ? 'active' : ''); ?>"><a href="#"><i class="fa fa-american-sign-language-interpreting"></i>Togel</a></li>
-                        <li class="<?php echo($data['function'] == 'bola' ? 'active' : ''); ?>"><a href="#"><i class="fa fa-futbol-o"></i>Bola</a></li>
+                        <li class="<?php echo(isset($data['function']) && $data['function'] == 'togel' ? 'active' : ''); ?>"><a href="#"><i class="fa fa-american-sign-language-interpreting"></i>Togel</a></li>
+                        <li class="<?php echo(isset($data['function']) && $data['function'] == 'bola' ? 'active' : ''); ?>"><a href="#"><i class="fa fa-futbol-o"></i>Bola</a></li>
                     </ul>
+                </li>
+                {{-- bank menu --}}
+                <li class="<?php echo ($data['controller'] == 'bank' ? 'active' : ''); ?> treeview">
+                    <a href="/admin/bank">
+                        <i class="fa"><span class="fa fa-bank"></span></i><span>Bank</span>
+                    </a>
                 </li>
                 {{-- transaction menu --}}
                 <li class="<?php echo ($data['controller'] == 'transaction' ? 'active' : ''); ?> treeview">
@@ -150,6 +156,7 @@
                         <i class="fa"><span class="glyphicon glyphicon-transfer"></span></i><span>Transaction</span>
                     </a>
                 </li>
+
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -177,6 +184,7 @@
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="/dist/js/app.min.js"></script>
+<script src="/js/modal.js"></script>
 <script src="/js/admin/admin.js"></script>
 
 {{-- load all the additional javascript --}}

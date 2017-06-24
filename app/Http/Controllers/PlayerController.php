@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class PlayerController extends Controller
 {
+    public function deposit()
+    {
+        $this->data['title'] = 'Deposit';
+        $this->data['controller'] = 'deposit';
+        return view('player.deposit')->with('data', $this->data);
+    }
+
     public function index()
     {
         if (Auth::guard('user')->check()) {
@@ -26,12 +33,6 @@ class PlayerController extends Controller
         $this->data['function'] = 'index';
         return view('player.index')->with('data', $this->data);
 
-    }
-
-    public function dashboard()
-    {
-        $this->data['title'] = '| Dashboard';
-        return view('public.index')->with('data', $this->data);
     }
 
     public function login(Request $request)
@@ -65,6 +66,11 @@ class PlayerController extends Controller
         }
     }
 
+    public function logout(){
+        Auth::guard('user')->logout();
+        return redirect('/');
+    }
+
     public function register(Request $request)
     {
         if (Auth::guard('user')->check()) {
@@ -87,6 +93,11 @@ class PlayerController extends Controller
 
             /* insert: player */
             $data = $request->all();
+
+            /* prepare credential data for login */
+            $credentialdata['playerid'] = $data['playerid'];
+            $credentialdata['password'] = $data['password'];
+
             $playermodel = new Player();
             foreach ($playermodel->getFillable() as $field) {
                 if ($field == 'password') {
@@ -96,14 +107,19 @@ class PlayerController extends Controller
                 }
             }
             $playermodel::create($data);
-            $this->response_json->status = true;
-            $this->response_json->message = 'Register Success. Please Sign In.';
+
+            /* login process */
+            if (Auth::guard('user')->attempt($credentialdata)) {
+                $this->response_json->status = true;
+            }
             return $this->__json();
         }
     }
 
-    public function logout() {
-        Auth::guard('user')->logout();
-        return redirect('/');
+    public function transaction()
+    {
+        $this->data['title'] = 'Transaction';
+        $this->data['controller'] = 'transaction';
+        return view('player.transaction')->with('data', $this->data);
     }
 }

@@ -1,3 +1,4 @@
+/* clear float */
 .clear-float:after,
 .clear-float:before {
     content: "";
@@ -5,67 +6,15 @@
     clear: both;
 }
 
-.skills .label {
-    display: inline-block;
-    margin: 0 3px;
-}
-
-.photo-blur-container img,
-.photo-blur-front {
-    transition: .3s all;
-}
-
-.photo-blur-container {
-    position: relative;
-    margin: 0 auto;
-    width: 90px;
-    height: 90px;
-}
-
-.photo-blur-front {
-    opacity: 0;
-    width: 30px;
-    height: 30px;
-    top: 35%;
-    left: 35%;
-    background: url('/assets/default_icons/edit.png') no-repeat;
-    background-size: cover;
-    position: absolute;
-}
-
-.photo-blur-container img {
-    background: transparent;
-}
-
-.photo-blur-container:hover {
-    background: rgba(0, 0, 0, .7);
-    border-radius: 50%;
-}
-
-.photo-blur-container:hover img{
-    -webkit-filter: blur(2px);
-    filter: blur(2px);
-    transform: scale(1.2);
-}
-
-.photo-blur-container:hover .photo-blur-front {
-    opacity: 1;
-}
-
-.label-block {
-    display: block;
-    text-align: center;
-    padding: 5px 0;
-    margin: 3px 0;
-}
-
+/* button add for general action in admin panel */
 .box-body a.general-action {
     font-size: 18px;
     padding: 4px 10px;
     color: white;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
+/* button multiple delete */
 .box-body a.multiple-delete {
     background: #C62828;
     display: none;
@@ -92,22 +41,24 @@
     border-radius: 0;
 }
 
+.btn {
+    margin: 0 3px;
+}
+
+/* alert in form */
 .redalert {
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
-    display: none;
 }
 
+.nonmodalalert {
+    display: none;
+}
 .greenalert {
     color: #468847;
     background-color: #dff0d8;
     border-color: #d6e9c6;
-}
-
-/* unset bs3 setting */
-.modal-open {
-    overflow: auto;
 }
 
 .modalalert {
@@ -115,13 +66,12 @@
     margin: 0 auto;
 }
 
+/* give margin between input group in form */
 .input-group {
     margin-bottom: 20px;
 }
 
-.callout {
-    width: 45%;
-    float: left;
-    margin-left: 10px;
-    margin-top: 20px;
+/* info number, vertical align */
+.info-box-number {
+    padding-top: 27px;
 }

@@ -20,21 +20,28 @@ Route::get('admin', 'AdminController@dashboard');
 Route::get('admin/login', 'AdminController@login');
 Route::get('admin/register', 'AdminController@register');
 Route::get('admin/logout', 'AdminController@logout');
-Route::get('admin/player', 'AdminController@player');
+Route::get('admin/player', 'PlayerAdminController@index');
+Route::get('admin/bank', 'BankAdminController@index');
 
 
 /* POST HTTP method */
 Route::post('admin/register', 'AdminController@register');
 Route::post('admin/login', 'AdminController@login');
-Route::post('admin/player', 'AdminController@player');
+Route::post('admin/player', 'PlayerAdminController@index');
+Route::post('admin/bank', 'BankAdminController@index');
+Route::post('admin/bank/add', 'BankAdminController@add');
+Route::post('admin/bank/update', 'BankAdminController@update');
+Route::post('admin/bank/delete', 'BankAdminController@delete');
 
 /* player */
 /* GET HTTP method */
 Route::get('/', 'PlayerController@index');
-Route::get('/player/dashboard', 'PlayerController@dashboard');
+Route::get('/player/deposit', 'PlayerController@deposit');
 Route::get('/player/logout', 'PlayerController@logout');
+Route::get('/player/transaction', 'PlayerController@transaction');
 
 /* POST HTTP method */
 Route::post('/player/register', 'PlayerController@register');
 Route::post('/player/login', 'PlayerController@login');
+Route::post('/player/transaction', 'PlayerController@transaction');
 
