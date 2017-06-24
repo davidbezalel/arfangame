@@ -46,6 +46,18 @@ class BankAdminController extends Controller
         return redirect('/admin/login');
     }
 
+    public function all() {
+        if (Auth::check() || Auth::guard('user')->check()) {
+            if ($this->isPost()) {
+                $banks = Bank::all();
+                $this->response_json->status = true;
+                $this->response_json->data = $banks;
+                return $this->__json();
+            }
+        }
+        return redirect('/admin/login');
+    }
+
     public function add(Request $request)
     {
         if (Auth::check()) {

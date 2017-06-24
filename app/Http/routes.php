@@ -38,10 +38,10 @@ Route::post('admin/bank/delete', 'BankAdminController@delete');
 Route::get('/', 'PlayerController@index');
 Route::get('/player/deposit', 'PlayerController@deposit');
 Route::get('/player/logout', 'PlayerController@logout');
-Route::get('/player/transaction', 'PlayerController@transaction');
+Route::get('/player/transaction', 'TransactionPlayerController@index');
 
 /* POST HTTP method */
 Route::post('/player/register', 'PlayerController@register');
 Route::post('/player/login', 'PlayerController@login');
-Route::post('/player/transaction', 'PlayerController@transaction');
+Route::post('/bank/all', 'BankAdminController@all');
 
