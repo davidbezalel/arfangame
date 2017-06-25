@@ -2,9 +2,9 @@
 
 namespace App\Model;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Helper\Model;
 
-class Bank extends Authenticatable
+class Bank extends Model
 {
     const ASSETS = 'bank/';
 

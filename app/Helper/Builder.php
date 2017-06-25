@@ -35,10 +35,12 @@ class Builder extends BaseBuilder
      * @param int $offset
      * @param string $orderBy
      * @param array|string $rulesOrder
+     * @param array of array join (second array [table, firstfield, operator, secondfield)
      *
      * @return array collection
      */
-    public function find_v2($where, $all = false, $select = ['*'], $limit = 0, $offset = 0, $orderBy = 'id', $rulesOrder = 'ASC')
+    public function find_v2($where, $all = false, $select = ['*'], $limit = 0, $offset = 0, $orderBy = 'id', $rulesOrder = 'ASC', $join = null)
+
     {
         $query = $this->where($where)
             ->orderBy($orderBy, $rulesOrder);
@@ -46,8 +48,14 @@ class Builder extends BaseBuilder
         if ($limit != 0) {
             $query->limit($limit)
                 ->offset($offset);
-
         }
+
+        if (null !== $join) {
+            foreach ($join as $j) {
+                $query->join($j[0], $j[1], $j[2], $j[3]);
+            }
+        }
+
         if ($all) {
             return $query->get($select);
         }

@@ -14,7 +14,7 @@ class PlayerController extends Controller
     {
         $this->data['title'] = 'Deposit';
         $this->data['controller'] = 'deposit';
-        return view('player.deposit')->with('data', $this->data);
+        return view('player.deposit.deposit')->with('data', $this->data);
     }
 
     public function index()

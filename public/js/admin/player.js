@@ -17,7 +17,6 @@ jQuery(document).ready(function () {
                 data: 'no',
                 className: 'no',
                 orderable: false,
-                searchable: false,
             }, {
                 data: 'name',
             }, {
@@ -25,7 +24,6 @@ jQuery(document).ready(function () {
                 orderable: false,
             }, {
                 data: 'deposite',
-                searchable: false,
                 render: function (data, type, row) {
                     return '<span class="spandivided spandivided-left"">IDR. </span><span class="spandivided spandivided-right"">' + data.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</span>';
                 }

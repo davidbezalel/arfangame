@@ -75,3 +75,8 @@
 .info-box-number {
     padding-top: 27px;
 }
+
+.navbar-nav>.notifications-menu>.dropdown-menu>li.header,
+.notifications-menu .dropdown-menu {
+    font-size: 12px !important;
+}

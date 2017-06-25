@@ -29,7 +29,6 @@ jQuery(document).ready(function () {
                 data: 'no',
                 className: 'no',
                 orderable: false,
-                searchable: false,
             }, {
                 data: 'bank',
             }, {
@@ -37,11 +36,9 @@ jQuery(document).ready(function () {
                 orderable: false,
             }, {
                 data: 'accountno',
-                searchable: false,
                 orderable: false,
             }, {
                 data: null,
-                searchable: false,
                 orderable: false,
                 className: 'right',
                 render: function (data) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Model\Player;
+use App\Model\Transaction;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -130,5 +131,26 @@ class AdminController extends Controller
         $this->data['styles'] = $styles;
         $this->data['scripts'] = $scripts;
         return view('admin.register')->with('data', $this->data);
+    }
+
+    public function transactionnotification(){
+        if (Auth::check()) {
+            if ($this->isPost()) {
+                $transactionmodel = new Transaction();
+                $where = [
+                    ['status', '=', Transaction::STATUS_CLAIMED]
+                ];
+
+                $join = [
+                    ['player', 'player.id', '=', 'transaction.player_id']
+                ];
+
+                $transactions = $transactionmodel->find_v2($where, true, ['transaction.*', 'player.name'], 0, 0, 'transaction.id', 'ASC', $join);
+                $this->response_json->status = true;
+                $this->response_json->data  = $transactions;
+                return $this->__json();
+            }
+        }
+        return redirect('/admin/login');
     }
 }

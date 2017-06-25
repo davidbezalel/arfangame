@@ -71,7 +71,7 @@ class BankAdminController extends Controller
 
                 /* checking validation error */
                 if (null !== $this->validate_v2($request, $rules)) {
-                    $this->response_json->message = $this->validate_V2($request, $rules);
+                    $this->response_json->message = $this->validate_v2($request, $rules);
                     return $this->__json();
                 }
 

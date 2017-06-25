@@ -66,8 +66,7 @@
         <div class="row" style="display: none;" id="transaction-form-container">
             <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-6 col-xs-12">
                 <div class="box box-default">
-                    <form action="" id="bank-form">
-                        <input type="hidden" name="id">
+                    <form action="" id="transaction-form">
                         <div class="modal-body">
                             <div class="alert nonmodalalert redalert" id="error"></div>
                             <div class="form-group has-feedback">
@@ -103,5 +102,39 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="display:none;" id="transaction-table-container">
+            <div class="col-md-12">
+                <div class="box box-default">
+                    <div class="box-body">
+                        <table id="transaction-table" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th class="no">#</th>
+                                <th>Admin Bank</th>
+                                <th>Player Bank</th>
+                                <th>Player Account Number</th>
+                                <th>Player Account Name</th>
+                                <th>Ammount</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <div id="successmodal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modalalert greenalert">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <span id="successaddmessage"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
