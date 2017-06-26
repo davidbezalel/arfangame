@@ -12,6 +12,7 @@
                             <thead>
                             <tr>
                                 <th class="no">#</th>
+                                <th>Player</th>
                                 <th>Admin Bank</th>
                                 <th>Player Bank</th>
                                 <th>Player Account Number</th>

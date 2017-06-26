@@ -20,8 +20,13 @@ class Builder extends BaseBuilder
         parent::__construct($query);
     }
 
-    public function getTableCount($where = []) {
-        return $this->where($where)->get(['id'])->count();
+    public function getTableCount($where = [], $join = [])
+    {
+        $query = $this->where($where);
+        foreach ($join as $j) {
+            $query->join($j[0], $j[1], $j[2], $j[3]);
+        }
+        return $query->get(['*'])->count();
     }
 
     /**
@@ -39,7 +44,7 @@ class Builder extends BaseBuilder
      *
      * @return array collection
      */
-    public function find_v2($where, $all = false, $select = ['*'], $limit = 0, $offset = 0, $orderBy = 'id', $rulesOrder = 'ASC', $join = null)
+    public function find_v2($where, $all = false, $select = ['*'], $limit = 0, $offset = 0, $orderBy = 'id', $rulesOrder = 'ASC', $join = [])
 
     {
         $query = $this->where($where)
@@ -50,10 +55,8 @@ class Builder extends BaseBuilder
                 ->offset($offset);
         }
 
-        if (null !== $join) {
-            foreach ($join as $j) {
-                $query->join($j[0], $j[1], $j[2], $j[3]);
-            }
+        foreach ($join as $j) {
+            $query->join($j[0], $j[1], $j[2], $j[3]);
         }
 
         if ($all) {

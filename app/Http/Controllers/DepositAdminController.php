@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Model\Player;
 use Illuminate\Http\Request;
 use App\Model\DepositTransaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class DepositPlayerController extends Controller
+class DepositAdminController extends Controller
 {
     public function index(Request $request)
     {
@@ -16,24 +17,24 @@ class DepositPlayerController extends Controller
             if ($this->isPost()) {
                 $deposittransactionmodel = new DepositTransaction();
                 $columns = ['no', 'ammount', 'type', 'transactiondescription', 'created_at'];
-                $where = [
-                    ['sourceid', '=', Auth::guard('user')->user()->id],
-                    ['destinationid', '=', Auth::guard('user')->user()->id, 'OR']
-                ];
+                $where = [];
                 $deposittransactions = $deposittransactionmodel->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
                 $number = intval($request['start']) + 1;
                 foreach ($deposittransactions as &$item) {
                     /* make transaction description */
                     if ($item['type'] == DepositTransaction::TYPE_DEPOSIT_CHARGE) {
                         $item['transactiondescription'] = 'Deposit Charge';
+                        $item['type'] = 'D';
                     }
 
-                    /* make type: D or K */
-                    if ($item['destinationid'] == Auth::guard('user')->user()->id) {
-                        $item['type'] = 'D';
+                    /* get player data */
+                    if ($item['sourceid'] != 0) {
+                        $player = Player::find($item['sourceid']);
                     } else {
-                        $item['type'] = 'K';
+                        $player = Player::find($item['destinationid']);
                     }
+                    $item['player'] = $player;
+
                     $item['no'] = $number;
                     $number++;
                 }
@@ -50,8 +51,9 @@ class DepositPlayerController extends Controller
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
             $this->data['title'] = 'Deposit';
-            $this->data['controller'] = 'deposit';
-            return view('player.deposit.index')->with('data', $this->data);
+            $this->data['controller'] = 'transaction';
+            $this->data['function'] = 'deposit';
+            return view('admin.deposit.index')->with('data', $this->data);
         }
         return redirect('/');
     }

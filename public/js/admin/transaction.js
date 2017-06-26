@@ -23,6 +23,8 @@ jQuery(document).ready(function () {
                 className: 'no',
                 orderable: false,
             }, {
+                data: 'playername',
+            }, {
                 data: 'bank',
                 orderable: false,
             }, {
@@ -43,26 +45,54 @@ jQuery(document).ready(function () {
                 data: 'type',
                 className: 'right',
                 orderable: false,
-                render: function (data) {
-                    return data == 'D' ? 'K' : 'D';
-                }
             }, {
-                data: 'status',
+                data: null,
                 className: 'right',
                 orderable: false,
                 render: function (data) {
                     var _status = '';
-                    if (data == 0) {
+                    var _class = '';
+                    if (data.status == 0) {
                         _status = 'claimed';
-                    } else if (data == 1) {
+                        _class = 'class="label label-warning"';
+                    } else if (data.status == 1) {
                         _status = 'verified';
+                        _class = 'class="label label-success"';
                     } else {
                         _status = 'un-verified';
+                        _class = 'class="label label-danger"';
                     }
-                    return '<span class="label label-warning">' + _status + '</span>'
+                    return '<a ' + _class + ' href="/admin/transaction/' + data.id + '">' + _status + '</a>'
                 }
             }
         ],
         order: [6, 'ASC']
     });
+
+    $('#verify-btn').click(function (event) {
+        event.preventDefault();
+        var _id = $(this).attr('data-id');
+        $.ajax({
+            url: '/admin/transaction/verify/' + _id,
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': token},
+            cache: false,
+            success: function (data) {
+                if (data.status) {
+                    successnotification(data.message);
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#successmodalclose', function (event) {
+        console.log('close');
+        location.href = '/admin/transaction';
+    });
+
+    $('#unverify-btn').click(function (event) {
+        event.preventDefault();
+        confirm('sorry');
+    });
+
 });

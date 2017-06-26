@@ -145,7 +145,7 @@ class AdminController extends Controller
                     ['player', 'player.id', '=', 'transaction.player_id']
                 ];
 
-                $transactions = $transactionmodel->find_v2($where, true, ['transaction.*', 'player.name'], 0, 0, 'transaction.id', 'ASC', $join);
+                $transactions = $transactionmodel->find_v2($where, true, ['transaction.*', 'player.name'], 0, 0, 'transaction.date', 'DESC', $join);
                 $this->response_json->status = true;
                 $this->response_json->data  = $transactions;
                 return $this->__json();

@@ -10,13 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class PlayerController extends Controller
 {
-    public function deposit()
-    {
-        $this->data['title'] = 'Deposit';
-        $this->data['controller'] = 'deposit';
-        return view('player.deposit.deposit')->with('data', $this->data);
-    }
-
     public function index()
     {
         if (Auth::guard('user')->check()) {
@@ -37,9 +30,6 @@ class PlayerController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::guard('user')->check()) {
-            /* redirect to dashboard */
-        }
         if ($this->isPost()) {
             /* process credentials */
             $rules = array(
@@ -64,18 +54,19 @@ class PlayerController extends Controller
             }
             return $this->__json();
         }
+
     }
 
-    public function logout(){
-        Auth::guard('user')->logout();
+    public function logout()
+    {
+        if (Auth::guard('user')->check()) {
+            Auth::guard('user')->logout();
+        }
         return redirect('/');
     }
 
     public function register(Request $request)
     {
-        if (Auth::guard('user')->check()) {
-            /* redirect to dashboard */
-        }
         if ($this->isPost()) {
             /* define rules */
             $rules = array(
@@ -114,12 +105,5 @@ class PlayerController extends Controller
             }
             return $this->__json();
         }
-    }
-
-    public function transaction()
-    {
-        $this->data['title'] = 'Transaction';
-        $this->data['controller'] = 'transaction';
-        return view('player.transaction')->with('data', $this->data);
     }
 }

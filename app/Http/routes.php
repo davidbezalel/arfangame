@@ -23,6 +23,8 @@ Route::get('admin/logout', 'AdminController@logout');
 Route::get('admin/player', 'PlayerAdminController@index');
 Route::get('admin/bank', 'BankAdminController@index');
 Route::get('admin/transaction', 'TransactionAdminController@index');
+Route::get('admin/transaction/{id}', 'TransactionAdminController@detail');
+Route::get('admin/deposit', 'DepositAdminController@index');
 
 
 /* POST HTTP method */
@@ -34,18 +36,21 @@ Route::post('admin/bank/add', 'BankAdminController@add');
 Route::post('admin/bank/update', 'BankAdminController@update');
 Route::post('admin/bank/delete', 'BankAdminController@delete');
 Route::post('admin/transaction', 'TransactionAdminController@index');
+Route::post('admin/transaction/verify/{id}', 'TransactionAdminController@verify');
 Route::post('admin/notification/transaction', 'AdminController@transactionnotification');
+Route::post('admin/deposit', 'DepositAdminController@index');
 
 /* player */
 /* GET HTTP method */
 Route::get('/', 'PlayerController@index');
-Route::get('/player/deposit', 'PlayerController@deposit');
+Route::get('/player/deposit', 'DepositPlayerController@index');
 Route::get('/player/logout', 'PlayerController@logout');
 Route::get('/player/transaction', 'TransactionPlayerController@index');
 
 /* POST HTTP method */
 Route::post('/player/register', 'PlayerController@register');
 Route::post('/player/login', 'PlayerController@login');
+Route::post('/player/deposit', 'DepositPlayerController@index');
 Route::post('/player/transaction/claim', 'TransactionPlayerController@claim');
 Route::post('/player/transaction', 'TransactionPlayerController@index');
 

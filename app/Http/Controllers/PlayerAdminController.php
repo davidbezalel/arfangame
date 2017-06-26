@@ -17,7 +17,7 @@ class PlayerAdminController extends Controller
                 /* get player data */
                 $playermodel = new Player();
 
-                $columns = ['no', 'name', 'playerid', 'deposite'];
+                $columns = ['no', 'name', 'playerid', 'deposit'];
                 $where = array(
                     ['name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
                     ['playerid', 'LIKE', '%' . $request['search']['value'] . '%']

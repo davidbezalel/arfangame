@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="claimwidget" class="col-md-4 col-md-offset-2 col-sm-6 col-xs-12">
+            <div id="claimwidget" class="col-md-3 col-md-offset-2 col-sm-6 col-xs-12">
                 <a href="">
                     <div class="info-box bg-aqua">
                     <span class="info-box-icon">
@@ -49,7 +49,7 @@
                     </div>
                 </a>
             </div>
-            <div id="logwidget" class="col-md-4 col-md-offset-1 col-sm-6 col-xs-12">
+            <div id="logwidget" class="col-md-3 col-md-offset-1 col-sm-6 col-xs-12">
                 <a href="">
                     <div class="info-box bg-green">
                     <span class="info-box-icon">
@@ -70,20 +70,20 @@
                         <div class="modal-body">
                             <div class="alert nonmodalalert redalert" id="error"></div>
                             <div class="form-group has-feedback">
-                                <select name="beneficiaryid" id="beneficiarys" class="form-control">
-                                    <option value="0">Choose beneficiary account</option>
+                                <select name="adminbankid" id="beneficiarys" class="form-control">
+                                    <option value="0">Choose Admin Bank</option>
                                 </select>
                             </div>
                             <div class="form-group has-feedback">
-                                <input type="text" name="sourcebank" class="form-control" placeholder="Your Bank">
+                                <input type="text" name="playerbank" class="form-control" placeholder="Your Bank">
                                 <span class="fa fa-cc-mastercard form-control-feedback"></span>
                             </div>
                             <div class="form-group has-feedback">
-                                <input type="text" name="sourceaccount" class="form-control" placeholder="Your Account Number">
+                                <input type="text" name="playeraccountno" class="form-control" placeholder="Your Account Number">
                                 <span class="form-control-feedback">12</span>
                             </div>
                             <div class="form-group has-feedback">
-                                <input type="text" name="sourcename" class="form-control" placeholder="Your Account Name">
+                                <input type="text" name="playeraccountname" class="form-control" placeholder="Your Account Name">
                                 <span class="glyphicon glyphicon-text-size form-control-feedback"></span>
                             </div>
                             <div class="form-group has-feedback">

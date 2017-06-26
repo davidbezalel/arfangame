@@ -68,19 +68,23 @@ jQuery(document).ready(function () {
                 className: 'right',
                 orderable: false,
             }, {
-                data: 'status',
+                data: null,
                 className: 'right',
                 orderable: false,
                 render: function (data) {
                     var _status = '';
-                    if (data == 0) {
+                    var _class = '';
+                    if (data.status == 0) {
                         _status = 'claimed';
-                    } else if (data == 1) {
+                        _class = 'class="label label-warning"';
+                    } else if (data.status == 1) {
                         _status = 'verified';
+                        _class = 'class="label label-success"';
                     } else {
                         _status = 'un-verified';
+                        _class = 'class="label label-danger"';
                     }
-                    return '<span class="label label-warning">' + _status + '</span>'
+                    return '<span ' + _class + '>' + _status + '</span>'
                 }
             }
         ],
@@ -104,6 +108,7 @@ jQuery(document).ready(function () {
     $('#transaction-form').submit(function (event) {
         event.preventDefault();
         var _data = $(this).serialize();
+        $('#error').hide();
         $.ajax({
             url: '/player/transaction/claim',
             type: 'POST',

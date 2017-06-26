@@ -20,7 +20,7 @@ jQuery(document).ready(function () {
                 if (!data.status) {
                     $('#errorregister').empty().append(data.message).show();
                 } else {
-                    location.href ='/player/dashboard';
+                    location.href ='/player/deposit';
                 }
                 $('#registerbtn').button('reset');
             }

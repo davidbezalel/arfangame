@@ -59,16 +59,16 @@ class TransactionPlayerController extends Controller
         if (Auth::guard('user')->check()) {
             if ($this->isPost()) {
                 /* validation */
-                if ($request['beneficiaryid'] == 0) {
-                    $this->response_json->message = 'Please choose beneficiary account.';
+                if ($request['adminbankid'] == 0) {
+                    $this->response_json->message = 'Please choose Admin Bank account.';
                     return $this->__json();
                 }
                 $rules = [
-                    'playerbank'=> 'required',
-                    'playeraccoutno'=> 'required',
-                    'playeraccoutname'=> 'required',
-                    'ammount'=> 'required',
-                    'date'=> 'required'
+                    'playerbank' => 'required',
+                    'playeraccountno' => 'required',
+                    'playeraccountname' => 'required',
+                    'ammount' => 'required',
+                    'date' => 'required'
                 ];
 
 
@@ -81,6 +81,7 @@ class TransactionPlayerController extends Controller
                 $data = $request->all();
                 $data['player_id'] = Auth::guard('user')->user()->id;
                 $data['status'] = Transaction::STATUS_CLAIMED;
+                $data['type'] = 'D';
 
                 if (Transaction::create($data)) {
                     $this->response_json->status = true;
@@ -92,4 +93,5 @@ class TransactionPlayerController extends Controller
         }
         return redirect('/');
     }
+
 }

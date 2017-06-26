@@ -126,7 +126,12 @@
                 <li class="<?php echo ($data['controller'] == 'transaction' ? 'active' : ''); ?> treeview">
                     <a href="/admin/transaction">
                         <i class="fa"><span class="glyphicon glyphicon-transfer"></span></i><span>Transaction</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
+                    <ul class="treeview-menu">
+                        <li class="<?php echo(isset($data['function']) && $data['function'] == 'transfer' ? 'active' : ''); ?>"><a href="/admin/transaction"><i class="fa fa-money"></i>Transfer</a></li>
+                        <li class="<?php echo(isset($data['function']) && $data['function'] == 'deposit' ? 'active' : ''); ?>"><a href="/admin/deposit"><i class="fa fa-creative-commons"></i>Deposit</a></li>
+                    </ul>
                 </li>
 
             </ul>
