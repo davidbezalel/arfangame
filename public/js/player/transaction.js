@@ -78,10 +78,10 @@ jQuery(document).ready(function () {
                         _status = 'claimed';
                         _class = 'class="label label-warning"';
                     } else if (data.status == 1) {
-                        _status = 'verified';
+                        _status = 'valid';
                         _class = 'class="label label-success"';
                     } else {
-                        _status = 'un-verified';
+                        _status = 'invalid';
                         _class = 'class="label label-danger"';
                     }
                     return '<span ' + _class + '>' + _status + '</span>'

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Model\Player;
 use App\Model\Bank;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class TransactionAdminController extends Controller
@@ -57,6 +58,7 @@ class TransactionAdminController extends Controller
         }
         return redirect('/admin/login');
     }
+
     public function detail($id)
     {
         if (Auth::check()) {
@@ -80,32 +82,56 @@ class TransactionAdminController extends Controller
         }
         return redirect('/admin/login');
     }
-    public function verify($id){
+
+    public function valid($id){
+        if (Auth::check()) {
+            if ($this->isPost()) {
+                DB::beginTransaction();
+                try {
+                    $transaction = Transaction::find($id);
+                    $player = Player::find($transaction['player_id']);
+
+                    /* update transaction */
+                    $transaction->status = Transaction::STATUS_VALID;
+                    $transaction->handledby = Auth::user()->id;
+                    $transaction->save();
+
+                    /* update user */
+                    $player->deposit += $transaction['ammount'];
+                    $player->save();
+
+                    /* insert deposite transaction */
+                    $data = [];
+                    $data['sourceid'] = 0;
+                    $data['destinationid'] = $transaction['player_id'];
+                    $data['type'] = DepositTransaction::TYPE_DEPOSIT_CHARGE;
+                    $data['referenceid'] = $transaction['id'];
+                    $data['ammount'] = $transaction['ammount'];
+                    DepositTransaction::create($data);
+
+                    DB::commit();
+
+                    $this->response_json->status = true;
+                    $this->response_json->message = 'Transaction Valid.';
+                    return $this->__json();
+                } catch (\Exception $e) {
+                    DB::rollback();
+                }
+            }
+        }
+        return redirect('/admin/login');
+    }
+
+    public function invalid($id){
         if (Auth::check()) {
             if ($this->isPost()) {
                 $transaction = Transaction::find($id);
-                $player = Player::find($transaction['player_id']);
-
-                /* update transaction */
-                $transaction->status = Transaction::STATUS_VERIFIED;
+                $transaction->status = Transaction::STATUS_INVALID;
                 $transaction->handledby = Auth::user()->id;
                 $transaction->save();
 
-                /* update user */
-                $player->deposit += $transaction['ammount'];
-                $player->save();
-
-                /* insert deposite transaction */
-                $data = [];
-                $data['sourceid'] = 0;
-                $data['destinationid'] = $transaction['player_id'];
-                $data['type'] = DepositTransaction::TYPE_DEPOSIT_CHARGE;
-                $data['referenceid'] = $transaction['id'];
-                $data['ammount'] = $transaction['ammount'];
-                DepositTransaction::create($data);
-
                 $this->response_json->status = true;
-                $this->response_json->message = 'Transaction Claimed';
+                $this->response_json->message = 'Transaction Invalid.';
                 return $this->__json();
             }
         }

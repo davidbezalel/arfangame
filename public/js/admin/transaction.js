@@ -56,10 +56,10 @@ jQuery(document).ready(function () {
                         _status = 'claimed';
                         _class = 'class="label label-warning"';
                     } else if (data.status == 1) {
-                        _status = 'verified';
+                        _status = 'valid';
                         _class = 'class="label label-success"';
                     } else {
-                        _status = 'un-verified';
+                        _status = 'invalid';
                         _class = 'class="label label-danger"';
                     }
                     return '<a ' + _class + ' href="/admin/transaction/' + data.id + '">' + _status + '</a>'
@@ -69,7 +69,7 @@ jQuery(document).ready(function () {
         order: [6, 'ASC']
     });
 
-    $('#verify-btn').click(function (event) {
+    $('#valid-btn').click(function (event) {
         event.preventDefault();
         var _id = $(this).attr('data-id');
         $.ajax({
@@ -90,9 +90,20 @@ jQuery(document).ready(function () {
         location.href = '/admin/transaction';
     });
 
-    $('#unverify-btn').click(function (event) {
+    $('#invalid-btn').click(function (event) {
         event.preventDefault();
-        confirm('sorry');
+        var _id = $(this).attr('data-id');
+        $.ajax({
+            url: '/admin/transaction/invalid/' + _id,
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': token},
+            cache: false,
+            success: function (data) {
+                if (data.status) {
+                    successnotification(data.message);
+                }
+            }
+        });
     });
 
 });

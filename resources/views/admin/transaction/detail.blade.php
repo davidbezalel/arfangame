@@ -46,17 +46,17 @@
                                     @if ($data['data']['status'] != \App\Model\Transaction::STATUS_CLAIMED)
                                     style="display: none;"
                                     @endif
-                                    type="button" id="verify-btn" data-id="{{ $data['data']['id'] }}"
+                                    type="button" id="valid-btn" data-id="{{ $data['data']['id'] }}"
                                     data-loading-text="<i class='fa fa-spinner fa-spin '></i>"
-                                    class="btn pull-right btn-success btn-flat">Verify
+                                    class="btn pull-right btn-success btn-flat">Valid
                             </button>
                             <button
                                     @if ($data['data']['status'] != \App\Model\Transaction::STATUS_CLAIMED)
                                     style="display: none;"
                                     @endif
-                                    type="button" id="unverify-btn"
+                                    type="button" id="invalid-btn" data-id="{{ $data['data']['id'] }}"
                                     data-loading-text="<i class='fa fa-spinner fa-spin '></i>"
-                                    class="btn pull-right btn-danger btn-flat">Un-Verify
+                                    class="btn pull-right btn-danger btn-flat">Invalid
                             </button>
                         </div>
                     </form>

@@ -8,8 +8,8 @@ class Transaction extends Model
 {
     const ASSETS = 'transaction/';
     const STATUS_CLAIMED = 0;
-    const STATUS_VERIFIED = 1;
-    const STATUS_UNVERIFIED = 2;
+    const STATUS_VALID = 1;
+    const STATUS_INVALID = 2;
 
 
     protected $table = 'transaction';

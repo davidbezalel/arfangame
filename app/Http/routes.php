@@ -36,7 +36,8 @@ Route::post('admin/bank/add', 'BankAdminController@add');
 Route::post('admin/bank/update', 'BankAdminController@update');
 Route::post('admin/bank/delete', 'BankAdminController@delete');
 Route::post('admin/transaction', 'TransactionAdminController@index');
-Route::post('admin/transaction/verify/{id}', 'TransactionAdminController@verify');
+Route::post('admin/transaction/valid/{id}', 'TransactionAdminController@valid');
+Route::post('admin/transaction/invalid/{id}', 'TransactionAdminController@invalid');
 Route::post('admin/notification/transaction', 'AdminController@transactionnotification');
 Route::post('admin/deposit', 'DepositAdminController@index');
 
