@@ -26,6 +26,8 @@ class DepositPlayerController extends Controller
                     /* make transaction description */
                     if ($item['type'] == DepositTransaction::TYPE_DEPOSIT_CHARGE) {
                         $item['transactiondescription'] = 'Deposit Charge';
+                    } else if ($item['type'] == DepositTransaction::TYPE_CASH_WITHDRAWAL) {
+                        $item['transactiondescription'] = 'Cash Withdrawal';
                     }
 
                     /* make type: D or K */

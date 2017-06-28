@@ -56,7 +56,14 @@ class Builder extends BaseBuilder
         }
 
         foreach ($join as $j) {
-            $query->join($j[0], $j[1], $j[2], $j[3]);
+            if (!isset($j[4])) {
+                $j[4] = 'inner';
+            }
+            if ($j[4] == 'inner') {
+                $query->join($j[0], $j[1], $j[2], $j[3]);
+            } else if ($j[4] == 'left') {
+                $query->leftJoin($j[0], $j[1], $j[2], $j[3]);
+            }
         }
 
         if ($all) {

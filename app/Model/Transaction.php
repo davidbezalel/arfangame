@@ -10,6 +10,8 @@ class Transaction extends Model
     const STATUS_CLAIMED = 0;
     const STATUS_VALID = 1;
     const STATUS_INVALID = 2;
+    const STATUS_REQUESTED = 3;
+    const STATUS_SENT = 4;
 
 
     protected $table = 'transaction';

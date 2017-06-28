@@ -138,7 +138,8 @@ class AdminController extends Controller
             if ($this->isPost()) {
                 $transactionmodel = new Transaction();
                 $where = [
-                    ['status', '=', Transaction::STATUS_CLAIMED]
+                    ['status', '=', Transaction::STATUS_CLAIMED],
+                    ['status', '=', Transaction::STATUS_REQUESTED, 'OR']
                 ];
 
                 $join = [

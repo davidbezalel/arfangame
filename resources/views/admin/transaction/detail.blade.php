@@ -11,7 +11,11 @@
                         <div class="modal-body">
                             <div class="alert nonmodalalert redalert" id="error"></div>
                             <div class="form-group has-feedback">
-                                <select disabled name="beneficiaryid" id="beneficiarys" class="form-control">
+                                <select
+                                        @if($data['data']['status'] !== \App\Model\Transaction::STATUS_REQUESTED)
+                                                disabled
+                                        @endif
+                                        name="adminbankid" id="beneficiarys" class="form-control">
                                     <option value="{{ $data['data']['adminbankid'] }}">{{ $data['data']['adminbank']['bank'] }}</option>
                                 </select>
                             </div>
@@ -31,27 +35,39 @@
                                 <span class="glyphicon glyphicon-text-size form-control-feedback"></span>
                             </div>
                             <div class="form-group has-feedback">
-                                <input disabled type="number" value="{{ $data['data']['ammount'] }}" name="ammount"
+                                <input disabled type="text" value="<?php echo(number_format($data['data']['ammount'], 2, ',', '.')); ?>" name="ammount"
                                        class="form-control" placeholder="Ammount">
                                 <span class="fa fa-money form-control-feedback"></span>
                             </div>
                             <div class="form-group has-feedback">
-                                <input disabled type="date" value="{{ $data['data']['date'] }}" name="date"
+                                <input
+                                        @if($data['data']['status'] !== \App\Model\Transaction::STATUS_REQUESTED)
+                                        disabled
+                                        @endif
+                                        type="date" value="{{ $data['data']['date'] }}" name="date"
                                        class="form-control" placeholder="Date">
                                 <span class="fa fa-calendar-o form-control-feedback"></span>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button
-                                    @if ($data['data']['status'] != \App\Model\Transaction::STATUS_CLAIMED)
+                                    @if ($data['data']['status'] !== \App\Model\Transaction::STATUS_REQUESTED)
+                                    style="display: none;"
+                                    @endif
+                                    type="button" id="sent-btn" data-id="{{ $data['data']['id'] }}"
+                                    data-loading-text="<i class='fa fa-spinner fa-spin '></i>"
+                                    class="btn pull-right btn-primary btn-flat">Sent
+                            </button>
+                            <button
+                                    @if ($data['data']['status'] !== \App\Model\Transaction::STATUS_CLAIMED)
                                     style="display: none;"
                                     @endif
                                     type="button" id="valid-btn" data-id="{{ $data['data']['id'] }}"
                                     data-loading-text="<i class='fa fa-spinner fa-spin '></i>"
-                                    class="btn pull-right btn-success btn-flat">Valid
+                                    class="btn pull-right btn-primary btn-flat">Valid
                             </button>
                             <button
-                                    @if ($data['data']['status'] != \App\Model\Transaction::STATUS_CLAIMED)
+                                    @if ($data['data']['status'] !== \App\Model\Transaction::STATUS_CLAIMED && $data['data']['status'] !== \App\Model\Transaction::STATUS_REQUESTED)
                                     style="display: none;"
                                     @endif
                                     type="button" id="invalid-btn" data-id="{{ $data['data']['id'] }}"

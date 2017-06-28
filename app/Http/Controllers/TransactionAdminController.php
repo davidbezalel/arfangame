@@ -25,15 +25,17 @@ class TransactionAdminController extends Controller
                     ['playerbank', 'LIKE', '%' . $request['search']['value'] . '%'],
                     ['playeraccountno', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
                     ['playeraccountname', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
-                    ['player.name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR']
+                    ['player.name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
+                    ['admin.name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR']
                 );
 
                 $join = [
-                    ['bank', 'bank.id', '=', 'transaction.adminbankid'],
-                    ['player', 'player.id', '=', 'transaction.player_id']
+                    ['bank', 'bank.id', '=', 'transaction.adminbankid', 'left'],
+                    ['player', 'player.id', '=', 'transaction.player_id'],
+                    ['admin', 'admin.id', '=', 'transaction.handledby', 'left']
                 ];
 
-                $transactions = $transactionmodel->find_v2($where, true, ['transaction.*', 'player.name as playername', 'bank.bank'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir'], $join);
+                $transactions = $transactionmodel->find_v2($where, true, ['transaction.*', 'admin.name as adminname', 'player.name as playername', 'bank.bank'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir'], $join);
                 $number = intval($request['start']) + 1;
                 foreach ($transactions as &$item) {
                     $item['no'] = $number;
@@ -133,6 +135,61 @@ class TransactionAdminController extends Controller
                 $this->response_json->status = true;
                 $this->response_json->message = 'Transaction Invalid.';
                 return $this->__json();
+            }
+        }
+        return redirect('/admin/login');
+    }
+
+    public function sent($id, Request $request){
+        if (Auth::check()) {
+            if ($this->isPost()) {
+                /* validation */
+                if ($request['adminbankid'] == 0) {
+                    $this->response_json->message = 'Please choose Admin Bank account.';
+                    return $this->__json();
+                }
+                $rules = [
+                    'date' => 'required'
+                ];
+
+                if (null !== $this->validate_v2($request, $rules)) {
+                    $this->response_json->message = $this->validate_v2($request, $rules);
+                    return $this->__json();
+                }
+
+                DB::beginTransaction();
+                try {
+                    /* update transaction */
+                    $transaction = Transaction::find($id);
+                    $transaction->status = Transaction::STATUS_SENT;
+                    $transaction->handledby = Auth::user()->id;
+                    $transaction->adminbankid = $request['adminbankid'];
+                    $transaction->date = $request['date'];
+                    $transaction->save();
+
+                    /* update user */
+                    $player = Player::find($transaction['player_id']);
+                    $player->deposit -= $transaction['ammount'];
+                    $player->save();
+
+                    /* insert deposite transaction */
+                    $data = [];
+                    $data['sourceid'] = $transaction['player_id'];
+                    $data['destinationid'] = 0;
+                    $data['type'] = DepositTransaction::TYPE_CASH_WITHDRAWAL;
+                    $data['referenceid'] = $transaction['id'];
+                    $data['ammount'] = $transaction['ammount'];
+                    DepositTransaction::create($data);
+
+                    DB::commit();
+
+                    $this->response_json->status = true;
+                    $this->response_json->message = 'Transaction Sent.';
+                    return $this->__json();
+
+                } catch(\Exception $e) {
+                    DB::rollback();
+                }
             }
         }
         return redirect('/admin/login');

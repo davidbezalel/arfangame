@@ -21,6 +21,7 @@
                                 <th>Date</th>
                                 <th>Type</th>
                                 <th>Status</th>
+                                <th>Handled By</th>
                             </tr>
                             </thead>
                         </table>

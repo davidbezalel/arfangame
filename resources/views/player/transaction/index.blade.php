@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="claimwidget" class="col-md-3 col-md-offset-2 col-sm-6 col-xs-12">
+            <div id="claimwidget" class="col-md-4 col-sm-12 col-xs-12">
                 <a href="">
                     <div class="info-box bg-aqua">
                     <span class="info-box-icon">
@@ -49,7 +49,7 @@
                     </div>
                 </a>
             </div>
-            <div id="logwidget" class="col-md-3 col-md-offset-1 col-sm-6 col-xs-12">
+            <div id="logwidget" class="col-md-4 col-sm-12 col-xs-12">
                 <a href="">
                     <div class="info-box bg-green">
                     <span class="info-box-icon">
@@ -58,6 +58,19 @@
 
                         <div class="info-box-content">
                             <span class="info-box-number">Transaction Log</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div id="cashwithdrawalwidget" class="col-md-4 col-sm-12 col-xs-12">
+                <a href="">
+                    <div class="info-box bg-red">
+                    <span class="info-box-icon">
+                        <i class="glyphicon glyphicon-download-alt"></i>
+                    </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-number">Cash Withdrawal</span>
                         </div>
                     </div>
                 </a>
@@ -97,6 +110,36 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" id="claim-btn" data-loading-text="<i class='fa fa-spinner fa-spin '></i>" class="btn pull-right btn-primary btn-flat">Claim</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="display: none;" id="cashwithdrawal-form-container">
+            <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-6 col-xs-12">
+                <div class="box box-default">
+                    <form action="" id="cashwithdrawal-form">
+                        <div class="modal-body">
+                            <div class="alert nonmodalalert redalert" id="casherror"></div>
+                            <div class="form-group has-feedback">
+                                <input type="text" name="playerbank" class="form-control" placeholder="Your Bank">
+                                <span class="fa fa-cc-mastercard form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input type="text" name="playeraccountno" class="form-control" placeholder="Your Account Number">
+                                <span class="form-control-feedback">12</span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input type="text" name="playeraccountname" class="form-control" placeholder="Your Account Name">
+                                <span class="glyphicon glyphicon-text-size form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input type="number" name="ammount" class="form-control" placeholder="Ammount">
+                                <span class="fa fa-money form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="request-btn" data-loading-text="<i class='fa fa-spinner fa-spin '></i>" class="btn pull-right btn-primary btn-flat">Request</button>
                         </div>
                     </form>
                 </div>

@@ -58,6 +58,7 @@ jQuery(document).ready(function () {
             }, {
                 data: 'ammount',
                 render: function (data) {
+                    data = data.toString().replace('.', ',');
                     return '<span class="spandivided spandivided-left"">IDR. </span><span class="spandivided spandivided-right"">' + data.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</span>';
                 }
             }, {
@@ -80,6 +81,12 @@ jQuery(document).ready(function () {
                     } else if (data.status == 1) {
                         _status = 'valid';
                         _class = 'class="label label-success"';
+                    } else if (data.status == 3) {
+                        _status = 'requested';
+                        _class = 'class="label label-warning"';
+                    } else if (data.status == 4) {
+                        _status = 'sent';
+                        _class = 'class="label label-success"';
                     } else {
                         _status = 'invalid';
                         _class = 'class="label label-danger"';
@@ -96,6 +103,7 @@ jQuery(document).ready(function () {
         $('#closeclue').click();
         $('#transaction-form-container').show();
         $('#transaction-table-container').hide();
+        $('#cashwithdrawal-form-container').hide();
     });
 
     $('#logwidget').click(function (event) {
@@ -103,6 +111,15 @@ jQuery(document).ready(function () {
         $('#closeclue').click();
         $('#transaction-table-container').show();
         $('#transaction-form-container').hide();
+        $('#cashwithdrawal-form-container').hide();
+    });
+
+    $('#cashwithdrawalwidget').click(function (event) {
+        event.preventDefault();
+        $('#closeclue').click();
+        $('#transaction-table-container').hide();
+        $('#transaction-form-container').hide();
+        $('#cashwithdrawal-form-container').show();
     });
 
     $('#transaction-form').submit(function (event) {
@@ -122,6 +139,28 @@ jQuery(document).ready(function () {
                     table.draw();
                 } else {
                     $('#error').empty().append(data.message).show();
+                }
+            }
+        });
+    });
+
+    $('#cashwithdrawal-form').submit(function (event) {
+        event.preventDefault();
+        var _data = $(this).serialize();
+        $('#casherror').hide();
+        $.ajax({
+            url: '/player/transaction/request',
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': token},
+            data: _data,
+            cache: false,
+            success: function (data) {
+                if (data.status) {
+                    successnotification(data.message);
+                    $('#cashwithdrawal-form')[0].reset();
+                    table.draw();
+                } else {
+                    $('#casherror').empty().append(data.message).show();
                 }
             }
         });

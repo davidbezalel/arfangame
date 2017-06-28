@@ -56,7 +56,7 @@
                             <span id="transactionnotificationcount" class="label label-danger"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header" id="transactionnotificationheader"></li>
+                            <li class="header" id="transactionnotificationheader" style="font-size: 14px !important;"></li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul id="transactionlist" class="menu">

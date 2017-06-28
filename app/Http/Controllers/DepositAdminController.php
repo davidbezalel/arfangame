@@ -25,6 +25,9 @@ class DepositAdminController extends Controller
                     if ($item['type'] == DepositTransaction::TYPE_DEPOSIT_CHARGE) {
                         $item['transactiondescription'] = 'Deposit Charge';
                         $item['type'] = 'D';
+                    } else if ($item['type'] == DepositTransaction::TYPE_CASH_WITHDRAWAL) {
+                        $item['transactiondescription'] = 'Cash Withdrawal';
+                        $item['type'] = 'K';
                     }
 
                     /* get player data */

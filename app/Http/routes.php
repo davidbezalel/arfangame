@@ -38,6 +38,7 @@ Route::post('admin/bank/delete', 'BankAdminController@delete');
 Route::post('admin/transaction', 'TransactionAdminController@index');
 Route::post('admin/transaction/valid/{id}', 'TransactionAdminController@valid');
 Route::post('admin/transaction/invalid/{id}', 'TransactionAdminController@invalid');
+Route::post('admin/transaction/sent/{id}', 'TransactionAdminController@sent');
 Route::post('admin/notification/transaction', 'AdminController@transactionnotification');
 Route::post('admin/deposit', 'DepositAdminController@index');
 
@@ -52,8 +53,9 @@ Route::get('/player/transaction', 'TransactionPlayerController@index');
 Route::post('/player/register', 'PlayerController@register');
 Route::post('/player/login', 'PlayerController@login');
 Route::post('/player/deposit', 'DepositPlayerController@index');
-Route::post('/player/transaction/claim', 'TransactionPlayerController@claim');
 Route::post('/player/transaction', 'TransactionPlayerController@index');
+Route::post('/player/transaction/claim', 'TransactionPlayerController@claim');
+Route::post('/player/transaction/request', 'TransactionPlayerController@request');
 
 
 /* multi function url */

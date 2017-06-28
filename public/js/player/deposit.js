@@ -26,6 +26,7 @@ jQuery(document).ready(function () {
                 orderable: false,
                 className: 'right',
                 render: function (data) {
+                    data = data.toString().replace('.', ',');
                     return '<span class="spandivided spandivided-left"">IDR. </span><span class="spandivided spandivided-right"">' + data.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</span>';
                 }
             }, {

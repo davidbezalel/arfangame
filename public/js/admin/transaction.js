@@ -9,6 +9,31 @@ jQuery(document).ready(function () {
     };
     var token = $('meta[name=csrf-token]').attr("content");
 
+    $.ajax({
+        url: '/bank/all',
+        type: 'POST',
+        headers: {'X-CSRF-TOKEN': token},
+        cache: false,
+        success: function (data) {
+            if (data.status) {
+                var _data = data.data;
+                var _no = 1;
+                $.each(_data, function (index, value) {
+                    var _tr = '<tr>' +
+                        '<td>' + _no + '</td>' +
+                        '<td>' + value.bank + '</td>' +
+                        '<td>' + value.name + '</td>' +
+                        '<td>' + value.accountno + '</td>' +
+                        '</tr>';
+                    var _option = '<option value="' + value.id + '">' + value.bank + '</option>';
+                    $('#bank-table').append(_tr);
+                    $('#beneficiarys').append(_option);
+                    _no++;
+                });
+            }
+        }
+    });
+
     var table = $('#transaction-table').DataTable({
         serverSide: true,
         lengthChange: true,
@@ -36,6 +61,7 @@ jQuery(document).ready(function () {
             }, {
                 data: 'ammount',
                 render: function (data) {
+                    data = data.toString().replace('.', ',');
                     return '<span class="spandivided spandivided-left"">IDR. </span><span class="spandivided spandivided-right"">' + data.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</span>';
                 }
             }, {
@@ -58,12 +84,21 @@ jQuery(document).ready(function () {
                     } else if (data.status == 1) {
                         _status = 'valid';
                         _class = 'class="label label-success"';
+                    } else if (data.status == 3) {
+                        _status = 'requested';
+                        _class = 'class="label label-warning"';
+                    } else if (data.status == 4) {
+                        _status = 'sent';
+                        _class = 'class="label label-success"';
                     } else {
                         _status = 'invalid';
                         _class = 'class="label label-danger"';
                     }
                     return '<a ' + _class + ' href="/admin/transaction/' + data.id + '">' + _status + '</a>'
                 }
+            }, {
+                data: 'adminname',
+                orderable: false,
             }
         ],
         order: [6, 'ASC']
@@ -101,6 +136,27 @@ jQuery(document).ready(function () {
             success: function (data) {
                 if (data.status) {
                     successnotification(data.message);
+                }
+            }
+        });
+    });
+
+    $('#sent-btn').click(function (event) {
+        event.preventDefault();
+        var _id = $(this).attr('data-id');
+        var _data = $('#transaction-form-verify').serialize();
+        $('#error').hide();
+        $.ajax({
+            url: '/admin/transaction/sent/' + _id,
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': token},
+            data: _data,
+            cache: false,
+            success: function (data) {
+                if (data.status) {
+                    successnotification(data.message);
+                } else {
+                    $('#error').empty().append(data.message).show();
                 }
             }
         });

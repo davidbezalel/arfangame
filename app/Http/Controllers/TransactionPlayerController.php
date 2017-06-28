@@ -26,7 +26,7 @@ class TransactionPlayerController extends Controller
                 );
 
                 $join = [
-                    ['bank', 'bank.id', '=', 'transaction.adminbankid']
+                    ['bank', 'bank.id', '=', 'transaction.adminbankid', 'left']
                 ];
 
                 $banks = $transactionmodel->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir'], $join);
@@ -86,6 +86,40 @@ class TransactionPlayerController extends Controller
                 if (Transaction::create($data)) {
                     $this->response_json->status = true;
                     $this->response_json->message = 'Your payment claimed.';
+                }
+
+                return $this->__json();
+            }
+        }
+        return redirect('/');
+    }
+
+    public function request(Request $request){
+        if (Auth::guard('user')->check()) {
+            if ($this->isPost()) {
+                /* validation */
+                $rules = [
+                    'playerbank' => 'required',
+                    'playeraccountno' => 'required',
+                    'playeraccountname' => 'required',
+                    'ammount' => 'required',
+                ];
+
+
+                if (null !== $this->validate_v2($request, $rules)) {
+                    $this->response_json->message = $this->validate_v2($request, $rules);
+                    return $this->__json();
+                }
+
+                /* insert */
+                $data = $request->all();
+                $data['player_id'] = Auth::guard('user')->user()->id;
+                $data['status'] = Transaction::STATUS_REQUESTED;
+                $data['type'] = 'K';
+
+                if (Transaction::create($data)) {
+                    $this->response_json->status = true;
+                    $this->response_json->message = 'Your Request sent. Admin will process it immediately.';
                 }
 
                 return $this->__json();

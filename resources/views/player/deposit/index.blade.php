@@ -8,7 +8,7 @@
             <div class="col-md-5 col-sm-6 col-xs-12">
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3 id="deposit">IDR. <?php echo(number_format(Auth::guard('user')->user()->deposit, 2)) ?> </h3>
+                        <h3 id="deposit">IDR. <?php echo(number_format(Auth::guard('user')->user()->deposit, 2, ",", ".")) ?> </h3>
                         <p>Deposit</p>
                     </div>
                     <div class="icon">
