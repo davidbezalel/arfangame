@@ -16,7 +16,7 @@ class TransactionPlayerController extends Controller
         if (Auth::guard('user')->check()) {
             if ($this->isPost()) {
                 $transactionmodel = new Transaction();
-                $columns = ['no', 'adminbankid', 'playerbank', 'playeraccountname', 'playeraccountname', 'ammount', 'date', 'status'];
+                $columns = ['transaction.updated_at', 'adminbankid', 'playerbank', 'playeraccountname', 'playeraccountname', 'ammount', 'date', 'status'];
                 $where = array(
                     ['player_id', '=', Auth::guard('user')->user()->id],
                     ['playerbank', 'LIKE', '%' . $request['search']['value'] . '%', 'AND ('],
@@ -108,6 +108,11 @@ class TransactionPlayerController extends Controller
 
                 if (null !== $this->validate_v2($request, $rules)) {
                     $this->response_json->message = $this->validate_v2($request, $rules);
+                    return $this->__json();
+                }
+
+                if (Auth::guard('user')->user()->deposit < $request['ammount']) {
+                    $this->response_json->message = 'Your deposit is not enough.';
                     return $this->__json();
                 }
 

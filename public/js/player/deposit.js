@@ -41,6 +41,6 @@ jQuery(document).ready(function () {
                 className: 'right'
             }
         ],
-        order: [4, 'ASC']
+        order: [0, 'DESC']
     });
 });

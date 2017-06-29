@@ -101,14 +101,14 @@ jQuery(document).ready(function () {
                 orderable: false,
             }
         ],
-        order: [6, 'ASC']
+        order: [0, 'DESC']
     });
 
     $('#valid-btn').click(function (event) {
         event.preventDefault();
         var _id = $(this).attr('data-id');
         $.ajax({
-            url: '/admin/transaction/verify/' + _id,
+            url: '/admin/transaction/valid/' + _id,
             type: 'POST',
             headers: {'X-CSRF-TOKEN': token},
             cache: false,

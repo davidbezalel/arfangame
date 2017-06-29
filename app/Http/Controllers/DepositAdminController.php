@@ -13,10 +13,10 @@ class DepositAdminController extends Controller
 {
     public function index(Request $request)
     {
-        if (Auth::guard('user')->check()) {
+        if (Auth::check()) {
             if ($this->isPost()) {
                 $deposittransactionmodel = new DepositTransaction();
-                $columns = ['no', 'ammount', 'type', 'transactiondescription', 'created_at'];
+                $columns = ['updated_at', 'ammount', 'type', 'transactiondescription', 'created_at'];
                 $where = [];
                 $deposittransactions = $deposittransactionmodel->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
                 $number = intval($request['start']) + 1;

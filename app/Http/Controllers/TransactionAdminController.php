@@ -19,7 +19,7 @@ class TransactionAdminController extends Controller
         if (Auth::check()) {
             if ($this->isPost()) {
                 $transactionmodel = new Transaction();
-                $columns = ['no', 'player.name', 'adminbankid', 'playerbank', 'playeraccountname', 'playeraccountname', 'ammount', 'date', 'status'];
+                $columns = ['updated_at', 'player.name', 'adminbankid', 'playerbank', 'playeraccountname', 'playeraccountname', 'ammount', 'date', 'status'];
 
                 $where = array(
                     ['playerbank', 'LIKE', '%' . $request['search']['value'] . '%'],

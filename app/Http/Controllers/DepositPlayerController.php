@@ -15,7 +15,7 @@ class DepositPlayerController extends Controller
         if (Auth::guard('user')->check()) {
             if ($this->isPost()) {
                 $deposittransactionmodel = new DepositTransaction();
-                $columns = ['no', 'ammount', 'type', 'transactiondescription', 'created_at'];
+                $columns = ['updated_at', 'ammount', 'type', 'transactiondescription', 'created_at'];
                 $where = [
                     ['sourceid', '=', Auth::guard('user')->user()->id],
                     ['destinationid', '=', Auth::guard('user')->user()->id, 'OR']

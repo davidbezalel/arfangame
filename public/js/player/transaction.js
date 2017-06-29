@@ -95,7 +95,7 @@ jQuery(document).ready(function () {
                 }
             }
         ],
-        order: [6, 'ASC']
+        order: [0, 'DESC']
     });
 
     $('#claimwidget').click(function (event) {
