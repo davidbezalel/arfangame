@@ -112,7 +112,7 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="<?php echo(isset($data['function']) && $data['function'] == 'togel' ? 'active' : ''); ?>"><a href="#"><i class="fa fa-american-sign-language-interpreting"></i>Togel</a></li>
+                        <li class="<?php echo(isset($data['function']) && $data['function'] == 'togel' ? 'active' : ''); ?>"><a href="/admin/game"><i class="fa fa-american-sign-language-interpreting"></i>Togel</a></li>
                         <li class="<?php echo(isset($data['function']) && $data['function'] == 'bola' ? 'active' : ''); ?>"><a href="#"><i class="fa fa-futbol-o"></i>Bola</a></li>
                     </ul>
                 </li>

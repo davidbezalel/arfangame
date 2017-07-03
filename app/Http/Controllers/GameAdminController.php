@@ -5,42 +5,43 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Model\User;
 use App\Model\Bank;
+use App\Model\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BankAdminController extends Controller
+class GameAdminController extends Controller
 {
     public function index(Request $request)
     {
         if ($this->isPost()) {
-            $bankmodel = new Bank();
-            $columns = ['no', 'bank', 'name', 'accountno'];
+            $gamemodel = new Game();
+            $columns = ['updated_at', 'name', 'multiple'];
 
             $where = array(
                 ['name', 'LIKE', '%' . $request['search']['value'] . '%'],
-                ['bank', 'LIKE', '%' . $request['search']['value'] . '%', 'OR']
             );
-            $banks = $bankmodel->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
+            $games = $gamemodel->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
             $number = intval($request['start']) + 1;
-            foreach ($banks as &$item) {
+            foreach ($games as &$item) {
                 $item['no'] = $number;
                 $number++;
             }
             $response_json = array();
             $response_json['draw'] = $request['draw'];
-            $response_json['data'] = $banks;
-            $response_json['recordsTotal'] = $bankmodel->getTableCount($where);
-            $response_json['recordsFiltered'] = $bankmodel->getTableCount($where);
+            $response_json['data'] = $games;
+            $response_json['recordsTotal'] = $gamemodel->getTableCount($where);
+            $response_json['recordsFiltered'] = $gamemodel->getTableCount($where);
             return $this->__json($response_json);
         }
         $styles = array();
         $scripts = array();
-        $scripts[] = 'bank.js';
+        $scripts[] = 'game.js';
         $this->data['styles'] = $styles;
         $this->data['scripts'] = $scripts;
-        $this->data['controller'] = 'bank';
+        $this->data['controller'] = 'game';
+        $this->data['function'] = 'togel';
         $this->data['title'] = 'Bank';
-        return view('admin.bank.index')->with('data', $this->data);
+        return view('admin.game.index')->with('data', $this->data);
     }
 
     public function all()
@@ -61,9 +62,9 @@ class BankAdminController extends Controller
         if ($this->isPost()) {
             /* set validation rules */
             $rules = array(
-                'bank' => 'required',
                 'name' => 'required',
-                'accountno' => 'required',
+                'multiple' => 'required',
+                'totaldigits' => 'required'
             );
 
             /* checking validation error */
@@ -73,19 +74,19 @@ class BankAdminController extends Controller
             }
 
             /* insert data */
-            $data = [];
-            $bankmodel = new Bank();
-            foreach ($bankmodel->getFillable() as $field) {
-                $data[$field] = $request[$field];
+            $data = $request->all();
+            if (Game::create($data)) {
+                $this->response_json->status = true;
+                $this->response_json->message = 'Game Added.';
+            } else {
+                $this->response_json->message = 'Sorry, something wrong.';
             }
-            Bank::create($data);
-            $this->response_json->status = true;
-            $this->response_json->message = 'Bank Added.';
             return $this->__json();
         }
     }
 
-    public function update(Request $request)
+    public
+    function update(Request $request)
     {
         if ($this->isPost()) {
             /* set validation rules */
@@ -119,7 +120,8 @@ class BankAdminController extends Controller
         }
     }
 
-    public function delete(Request $request)
+    public
+    function delete(Request $request)
     {
         if ($this->isPost()) {
             $id = $request['id'];

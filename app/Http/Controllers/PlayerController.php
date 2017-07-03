@@ -12,9 +12,6 @@ class PlayerController extends Controller
 {
     public function index()
     {
-        if (Auth::guard('user')->check()) {
-            /* load user data */
-        }
         $styles = array();
 
         $scripts = array();
@@ -59,9 +56,7 @@ class PlayerController extends Controller
 
     public function logout()
     {
-        if (Auth::guard('user')->check()) {
-            Auth::guard('user')->logout();
-        }
+        Auth::guard('user')->logout();
         return redirect('/');
     }
 

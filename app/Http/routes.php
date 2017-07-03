@@ -25,6 +25,7 @@ Route::get('admin/bank', 'BankAdminController@index');
 Route::get('admin/transaction', 'TransactionAdminController@index');
 Route::get('admin/transaction/{id}', 'TransactionAdminController@detail');
 Route::get('admin/deposit', 'DepositAdminController@index');
+Route::get('admin/game', 'GameAdminController@index');
 
 
 /* POST HTTP method */
@@ -41,6 +42,8 @@ Route::post('admin/transaction/invalid/{id}', 'TransactionAdminController@invali
 Route::post('admin/transaction/sent/{id}', 'TransactionAdminController@sent');
 Route::post('admin/notification/transaction', 'AdminController@transactionnotification');
 Route::post('admin/deposit', 'DepositAdminController@index');
+Route::post('admin/game', 'GameAdminController@index');
+Route::post('admin/game/add', 'GameAdminController@add');
 
 /* player */
 /* GET HTTP method */

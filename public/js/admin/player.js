@@ -25,6 +25,7 @@ jQuery(document).ready(function () {
             }, {
                 data: 'deposit',
                 render: function (data, type, row) {
+                    data = data.toString().replace('.', ',');
                     return '<span class="spandivided spandivided-left"">IDR. </span><span class="spandivided spandivided-right"">' + data.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</span>';
                 }
             }

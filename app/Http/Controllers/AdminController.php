@@ -14,19 +14,16 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        if (Auth::check()) {
-            if ($this->isPost()) {
-                /* get admin data */
-            }
-            $styles = array();
-            $scripts = array();
-            $this->data['styles'] = $styles;
-            $this->data['scripts'] = $scripts;
-            $this->data['controller'] = 'dashboard';
-            $this->data['title'] = 'Dashboard';
-            return view('admin.index')->with('data', $this->data);
+        if ($this->isPost()) {
+            /* get admin data */
         }
-        return redirect('/admin/login');
+        $styles = array();
+        $scripts = array();
+        $this->data['styles'] = $styles;
+        $this->data['scripts'] = $scripts;
+        $this->data['controller'] = 'dashboard';
+        $this->data['title'] = 'Dashboard';
+        return view('admin.index')->with('data', $this->data);
     }
 
     public function logout()
@@ -37,9 +34,6 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::check()) {
-            return redirect('/admin/dashboard');
-        }
         if ($this->isPost()) {
             /* set validation rules */
             $rules = array(
@@ -133,25 +127,23 @@ class AdminController extends Controller
         return view('admin.register')->with('data', $this->data);
     }
 
-    public function transactionnotification(){
-        if (Auth::check()) {
-            if ($this->isPost()) {
-                $transactionmodel = new Transaction();
-                $where = [
-                    ['status', '=', Transaction::STATUS_CLAIMED],
-                    ['status', '=', Transaction::STATUS_REQUESTED, 'OR']
-                ];
+    public function transactionnotification()
+    {
+        if ($this->isPost()) {
+            $transactionmodel = new Transaction();
+            $where = [
+                ['status', '=', Transaction::STATUS_CLAIMED],
+                ['status', '=', Transaction::STATUS_REQUESTED, 'OR']
+            ];
 
-                $join = [
-                    ['player', 'player.id', '=', 'transaction.player_id']
-                ];
+            $join = [
+                ['player', 'player.id', '=', 'transaction.player_id']
+            ];
 
-                $transactions = $transactionmodel->find_v2($where, true, ['transaction.*', 'player.name'], 0, 0, 'transaction.date', 'DESC', $join);
-                $this->response_json->status = true;
-                $this->response_json->data  = $transactions;
-                return $this->__json();
-            }
+            $transactions = $transactionmodel->find_v2($where, true, ['transaction.*', 'player.name'], 0, 0, 'transaction.date', 'DESC', $join);
+            $this->response_json->status = true;
+            $this->response_json->data = $transactions;
+            return $this->__json();
         }
-        return redirect('/admin/login');
     }
 }
